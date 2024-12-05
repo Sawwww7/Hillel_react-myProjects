@@ -1,0 +1,65 @@
+.add-to-cart,
+.delete-btn {
+  background-color: #fdb913;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.add-to-cart:hover {
+  background-color: #e5a700;
+}
+
+.btn {
+  background-color: #fdb913;
+  color: white;
+  border: none;
+  padding: 0.75rem 2rem;
+  font-size: 1rem;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.btn:hover,
+.counter_button:hover,
+.delete-btn:hover,
+.order-btn:hover {
+  background-color: #e5a700;
+}
+
+.counter_button,
+.quantity-btn {
+  background-color: #fdb913;
+  color: white;
+  border: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.order-btn {
+  background-color: #fdb913;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.clear-btn {
+  background-color: transparent;
+  color: #666;
+  border: 1px solid #ccc;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  text-transform: uppercase;
+}
