@@ -8,22 +8,19 @@ import PageNotFound from "./pages/PageNotFound";
 import cartItems from "./data/data-order";
 import { useContext } from "react";
 import { ThemeContext } from "./context/ThemeContext";
-import NameContextProvider from "./context/NameContext";
 
 function App() {
   const { theme } = useContext(ThemeContext);
 
   return (
     <div className={theme}>
-      <NameContextProvider>
-        <Header />
-        <Routes>
-          <Route path="/" element={<Main />} />
-          <Route path="/menu" element={<Menu />} />
-          <Route path="/basket" element={<Cart cartItems={cartItems} />} />
-          <Route path="*" element={<PageNotFound />} />
-        </Routes>
-      </NameContextProvider>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Main />} />
+        <Route path="/menu" element={<Menu />} />
+        <Route path="/basket" element={<Cart cartItems={cartItems} />} />
+        <Route path="*" element={<PageNotFound />} />
+      </Routes>
     </div>
   );
 }

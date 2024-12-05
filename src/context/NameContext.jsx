@@ -1,6 +1,8 @@
 import { createContext, useState } from "react";
 
 export const NameContext = createContext(null);
+NameContext.displayName = "NameContext";
+
 const NameContextProvider = ({ children }) => {
   const [userName, setUserName] = useState("");
   const austUser = {

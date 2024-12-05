@@ -29,12 +29,11 @@ const Header = () => {
           Basket
         </Link>
       </div>
-      <div>
-        <button className="toggle_theme" onClick={onToggle}>
-          Toggle theme: {theme}
-        </button>
-      </div>
+      <div></div>
       <div className="username">{userName}</div>
+      <button className="toggle_theme" onClick={onToggle}>
+        Toggle theme: {theme}
+      </button>
     </div>
   );
 };
