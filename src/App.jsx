@@ -8,6 +8,7 @@ import PageNotFound from "./pages/PageNotFound";
 import cartItems from "./data/data-order";
 import { useContext } from "react";
 import { ThemeContext } from "./context/ThemeContext";
+import PageOrderForm from "./pages/PageOrderForm/PageOrderForm";
 
 function App() {
   const { theme } = useContext(ThemeContext);
@@ -19,6 +20,7 @@ function App() {
         <Route path="/" element={<Main />} />
         <Route path="/menu" element={<Menu />} />
         <Route path="/basket" element={<Cart cartItems={cartItems} />} />
+        <Route path="/order" element={<PageOrderForm />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </div>

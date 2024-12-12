@@ -40,3 +40,7 @@
 .heder_link:hover {
   background-color: #e5a700;
 }
+
+.links {
+  display: flex;
+}

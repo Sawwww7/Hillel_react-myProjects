@@ -21,12 +21,15 @@ const Header = () => {
         value={yourSearchValue}
         setInputValue={setYourSearchValue}
       />
-      <div>
+      <div className="links">
         <Link className={"heder_link"} to="/menu">
           Menu
         </Link>
         <Link className={"heder_link"} to="/basket">
           Basket
+        </Link>
+        <Link className={"heder_link"} to="/order">
+          Order information
         </Link>
       </div>
       <div></div>

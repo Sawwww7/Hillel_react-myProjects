@@ -6,6 +6,9 @@ const Input = ({
   aria_label,
   value,
   setInputValue,
+  id,
+  readonly,
+  required,
 }) => {
   const handleChangeInput = (event) => {
     setInputValue(event.target.value);
@@ -24,6 +27,9 @@ const Input = ({
       value={value}
       onChange={handleChangeInput}
       onClick={handleClickInput}
+      id={id}
+      readOnly={readonly}
+      required={required}
     />
   );
 };
