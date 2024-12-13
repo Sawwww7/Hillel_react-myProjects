@@ -1,3 +1,4 @@
+import { memo } from "react";
 import "./input.css";
 const Input = ({
   type,
@@ -34,4 +35,4 @@ const Input = ({
   );
 };
 
-export default Input;
+export default memo(Input);

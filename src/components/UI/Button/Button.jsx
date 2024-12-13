@@ -1,3 +1,4 @@
+import { memo } from "react";
 import "./button.css";
 const Button = ({ children, className, onClick, aria_label, type }) => {
   return (
@@ -12,4 +13,4 @@ const Button = ({ children, className, onClick, aria_label, type }) => {
   );
 };
 
-export default Button;
+export default memo(Button);
