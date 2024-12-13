@@ -31,6 +31,12 @@ const Header = () => {
         <Link className={"heder_link"} to="/order">
           Order information
         </Link>
+        <Link
+          className={"heder_link"}
+          to={userName ? `/order/${userName}` : "*"}
+        >
+          Order status
+        </Link>
       </div>
       <div></div>
       <div className="username">{userName}</div>

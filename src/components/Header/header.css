@@ -22,15 +22,17 @@
 }
 
 .username {
+  font-family: monospace;
+  font-size: 1.25rem;
   font-weight: bold;
-  margin: 10px;
+  margin: 3px;
 }
 
 .heder_link {
   background-color: #fdb913;
   color: white;
   border: none;
-  padding: 0.75rem 2rem;
+  padding: 0.75rem 1rem;
   font-size: 1rem;
   border-radius: 9999px;
   cursor: pointer;

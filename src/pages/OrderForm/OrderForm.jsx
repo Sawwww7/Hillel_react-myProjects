@@ -1,10 +1,10 @@
-import "./PageOrderForm.css";
+import "./orderForm.css";
 import { useContext, useState } from "react";
 import { NameContext } from "../../context/NameContext";
 import Button from "../../components/UI/Button/Button";
 import Input from "../../components/UI/Input/Input";
 
-const PageOrderForm = () => {
+const OrderForm = () => {
   const { userName } = useContext(NameContext);
   const [yourPhoneNumber, setYourPhoneNumber] = useState("");
   const [yourAddress, setYourAddress] = useState("");
@@ -72,4 +72,4 @@ const PageOrderForm = () => {
   );
 };
 
-export default PageOrderForm;
+export default OrderForm;
