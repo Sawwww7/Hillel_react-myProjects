@@ -1,7 +1,4 @@
 const TimeBanner = () => {
-  /*const min = document.getElementById("minutes");
-  const date = new Date();
-  console.log(date);*/
   return (
     <div className="time-banner">
       <div className="time-left" id="minutes">

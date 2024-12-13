@@ -8,6 +8,7 @@
 .body_page_orderStatus {
   background-color: #f8f9fa;
   padding: 2rem;
+  min-height: 100vh;
 }
 
 .container_page_orderstatus {
