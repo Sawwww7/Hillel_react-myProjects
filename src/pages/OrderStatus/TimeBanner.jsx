@@ -1,3 +1,5 @@
+import { memo } from "react";
+
 const TimeBanner = () => {
   return (
     <div className="time-banner">
@@ -11,4 +13,4 @@ const TimeBanner = () => {
   );
 };
 
-export default TimeBanner;
+export default memo(TimeBanner);
