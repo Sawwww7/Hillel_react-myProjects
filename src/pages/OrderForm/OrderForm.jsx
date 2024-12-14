@@ -3,6 +3,7 @@ import { useContext, useState } from "react";
 import { NameContext } from "../../context/NameContext";
 import Button from "../../components/UI/Button/Button";
 import Input from "../../components/UI/Input/Input";
+import HookForm from "../../components/Form/HookForm";
 
 const OrderForm = () => {
   const { userName } = useContext(NameContext);
@@ -12,6 +13,8 @@ const OrderForm = () => {
   return (
     <div className="body_page_order">
       <div className="container_page_order">
+        <h1>Ready to order? Let's go!</h1>
+        <HookForm />
         <h1>Ready to order? Let's go!</h1>
         <form>
           <div className="form-group">

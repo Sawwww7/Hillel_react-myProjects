@@ -12,7 +12,11 @@ const Header = () => {
 
   return (
     <div className="header">
-      <div className="logo">PIZZA DAY</div>
+      <div className="logo">
+        <Link className="logo_heder_link" to="/">
+          PIZZA DAY
+        </Link>
+      </div>
       <Input
         type={"text"}
         className={"search-bar"}
