@@ -6,7 +6,13 @@ import { z } from "zod";
 
 const schema = z.object({
   first_name: z.string().min(3),
-  phone_number: z.number().positive(),
+  //phone_number: z.coerce.number().gte(5),
+  phone_number: z
+    .string()
+    .min(7, { message: "Ви ввели замало символів" })
+    .refine((val) => !Number.isNaN(parseInt(val, 10)), {
+      message: "Expected number, received a string",
+    }),
   address: z.string().min(5, { message: "Ви ввели замало символів" }),
 });
 
@@ -21,7 +27,7 @@ const HookForm = () => {
     mode: "onBlur",
     defaultValues: {
       first_name: userName,
-      phone_number: null,
+      phone_number: 38,
       address: "",
     },
     resolver: zodResolver(schema),
@@ -47,10 +53,9 @@ const HookForm = () => {
       <div className="form-group">
         <label htmlFor="phone">Phone number</label>
         <input
-          {...register("phone_number")}
+          {...register("phone_number" /*{ valueAsNumber: true }*/)}
           className="input_page_order"
           type="tel"
-          required
         />
         {errors.phone_number && <p>{errors.phone_number.message}</p>}
       </div>
