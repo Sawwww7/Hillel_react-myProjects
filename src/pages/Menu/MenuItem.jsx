@@ -1,11 +1,30 @@
-import { useState } from "react";
+import { /*useReducer,*/ useContext, useState } from "react";
 import Button from "../../components/UI/Button/Button";
 import Counter from "../../components/Counter/Counter";
+import { CartContext } from "../../context/CartContext";
+import CounterDispatchAction from "../../components/Counter/CounterDispatchAction";
 
 const MenuItem = ({ pizza }) => {
   const { id, name, unitPrice, imageUrl, ingredients, soldOut } = pizza;
   const [count, setCount] = useState(0);
+  const { cartItems, dispatch } = useContext(CartContext);
+
+  const quantityy = 0;
+  let countt = cartItems.filter((cartt) => cartt.id === id);
+
+  console.log(countt);
+
   const handleClickButton = () => {
+    dispatch({
+      type: "ADD_TO_CART",
+      items: {
+        id: id,
+        name: name,
+        price: unitPrice,
+        quantity: 1,
+      },
+    });
+    //console.log(countt);
     setCount(1);
   };
   return (
@@ -37,7 +56,14 @@ const MenuItem = ({ pizza }) => {
               ADD TO CART
             </Button>
           ) : (
-            <Counter count={count} setCount={setCount} />
+            <div>
+              <CounterDispatchAction
+                quantity={quantityy}
+                /*quantity={quantity} */ id={id}
+              />
+
+              <Counter count={count} setCount={setCount} />
+            </div>
           )}
         </>
       )}

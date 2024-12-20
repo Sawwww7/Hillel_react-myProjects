@@ -2,11 +2,14 @@ import { useContext } from "react";
 import CartItem from "./CartItem";
 import Button from "../../components/UI/Button/Button";
 import { NameContext } from "../../context/NameContext";
+import { CartContext } from "../../context/CartContext";
 import { Link } from "react-router-dom";
 import "./cart.css";
 
-const Cart = ({ cartItems }) => {
+const Cart = (/*{ cartItems }*/) => {
   const { userName } = useContext(NameContext);
+  const { cartItems } = useContext(CartContext);
+
   return (
     <div className="cart-container">
       <Link className="back-link" to="/menu">
