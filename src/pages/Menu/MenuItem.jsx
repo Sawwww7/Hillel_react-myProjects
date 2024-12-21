@@ -1,32 +1,15 @@
-import { /*useReducer,*/ useContext, useState } from "react";
-import Button from "../../components/UI/Button/Button";
-import Counter from "../../components/Counter/Counter";
+import { useContext } from "react";
 import { CartContext } from "../../context/CartContext";
+import Button from "../../components/UI/Button/Button";
 import CounterDispatchAction from "../../components/Counter/CounterDispatchAction";
 
 const MenuItem = ({ pizza }) => {
   const { id, name, unitPrice, imageUrl, ingredients, soldOut } = pizza;
-  const [count, setCount] = useState(0);
-  const { cartItems, dispatch } = useContext(CartContext);
 
-  const quantityy = 0;
-  let countt = cartItems.filter((cartt) => cartt.id === id);
+  const { state, onAdd, onIncrementPriceQuantity } = useContext(CartContext);
 
-  console.log(countt);
+  const item = state.cartItems.find((item) => item.id === id);
 
-  const handleClickButton = () => {
-    dispatch({
-      type: "ADD_TO_CART",
-      items: {
-        id: id,
-        name: name,
-        price: unitPrice,
-        quantity: 1,
-      },
-    });
-    //console.log(countt);
-    setCount(1);
-  };
   return (
     <div className="pizza-item">
       <img src={imageUrl} alt={`${name} Pizza`} className="pizza-image" />
@@ -51,18 +34,18 @@ const MenuItem = ({ pizza }) => {
         <p className="sold-out">SOLD OUT</p>
       ) : (
         <>
-          {count <= 0 ? (
-            <Button className={"add-to-cart"} onClick={handleClickButton}>
+          {!item ? (
+            <Button
+              className={"add-to-cart"}
+              onClick={() => {
+                onAdd(pizza), onIncrementPriceQuantity(unitPrice);
+              }}
+            >
               ADD TO CART
             </Button>
           ) : (
             <div>
-              <CounterDispatchAction
-                quantity={quantityy}
-                /*quantity={quantity} */ id={id}
-              />
-
-              <Counter count={count} setCount={setCount} />
+              <CounterDispatchAction id={id} />
             </div>
           )}
         </>

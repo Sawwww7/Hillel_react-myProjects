@@ -3,37 +3,39 @@ import Button from "../UI/Button/Button";
 import "./counter.css";
 import { CartContext } from "../../context/CartContext";
 
-const CounterDispatchAction = ({ quantity, /* setCount */ id }) => {
-  const { cartItems, dispatch } = useContext(CartContext);
-  let quantityy = cartItems.map((cart) => cart.id === id);
-  const handleClickDecrementButton = () => {
-    dispatch({
-      type: "DECREMENT_CART",
-      payload: Number(id),
-    });
-  };
-  const handleClickIncrementButton = () => {
-    dispatch({
-      type: "INCREMENT_CART",
-      payload: Number(id),
-    });
-  };
+const CounterDispatchAction = ({ id }) => {
+  const {
+    state,
+    onIncrement,
+    onDecrement,
+    onIncrementPriceQuantity,
+    onDecrementPriceQuantity,
+  } = useContext(CartContext);
+
+  const item = state.cartItems.find((item) => item.id === id);
+
   return (
     <div className="counter">
-      {quantity > 0 && (
+      {item.qty > 0 && (
         <Button
           className={"counter_button"}
-          onClick={handleClickDecrementButton}
+          onClick={() => {
+            onDecrement(id);
+            onDecrementPriceQuantity(item.unitPrice);
+          }}
           aria_label={"Decrease quantity"}
         >
           -
         </Button>
       )}
-      <span> {quantity} </span>
+      <span> {item.qty} </span>
 
       <Button
         className={"counter_button"}
-        onClick={handleClickIncrementButton}
+        onClick={() => {
+          onIncrement(id);
+          onIncrementPriceQuantity(item.unitPrice);
+        }}
         aria_label={"Increase quantity"}
       >
         +

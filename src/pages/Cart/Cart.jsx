@@ -6,9 +6,9 @@ import { CartContext } from "../../context/CartContext";
 import { Link } from "react-router-dom";
 import "./cart.css";
 
-const Cart = (/*{ cartItems }*/) => {
+const Cart = () => {
   const { userName } = useContext(NameContext);
-  const { cartItems } = useContext(CartContext);
+  const { state } = useContext(CartContext);
 
   return (
     <div className="cart-container">
@@ -18,22 +18,20 @@ const Cart = (/*{ cartItems }*/) => {
       <h1 className="cart-title">{`Your cart, ${userName}`}</h1>
 
       <div className="cart-item">
-        {cartItems.map((item) => (
-          <CartItem key={item.id} item={item} />
-        ))}
+        {state.cartItems.map((item) => {
+          return <CartItem key={item.id} item={item} />;
+        })}
       </div>
 
       <div className="cart-actions">
         <Button
-          className={"order-btn"}
-          // onClick={}
+          className={"order-btn"} //onClick={}
           aria_label={"Order pizzas"}
         >
           Order pizzas
         </Button>
         <Button
-          className={"clear-btn"}
-          // onClick={}
+          className={"clear-btn"} //onClick={}
           aria_label={"Clear cart"}
         >
           Clear cart

@@ -2,18 +2,21 @@ import "./App.css";
 import { Route, Routes } from "react-router-dom";
 import { useContext } from "react";
 import { ThemeContext } from "./context/ThemeContext";
+import { CartContext } from "./context/CartContext";
 import Header from "./components/Header/Header";
 import Main from "./pages/Main/Main";
 import Menu from "./pages/Menu/Menu";
 import Cart from "./pages/Cart/Cart";
 import PageNotFound from "./pages/PageNotFound";
-//import cartItems from "./data/data-order";
-
 import OrderForm from "./pages/OrderForm/orderForm";
 import OrderStatus from "./pages/OrderStatus/OrderStatus";
+import Footer from "./components/Footer/Footer";
 
 function App() {
   const { theme } = useContext(ThemeContext);
+  const { state } = useContext(CartContext);
+
+  //const item = state.cartItems.find((item) => item.id === id);
 
   return (
     <div className={theme}>
@@ -26,6 +29,7 @@ function App() {
         <Route path="/order/:orderId" element={<OrderStatus />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
+      {state.cartItems.length > 0 && <Footer />}
     </div>
   );
 }

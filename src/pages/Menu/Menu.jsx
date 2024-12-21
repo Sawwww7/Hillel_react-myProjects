@@ -1,9 +1,11 @@
 import "./menu.css";
 import MenuItem from "./MenuItem";
-import { useEffect, useState } from "react";
+import { useContext } from "react";
+import { CartContext } from "../../context/CartContext";
+import { useEffect } from "react";
 
 const Menu = () => {
-  const [pizzas, setPizzas] = useState([]);
+  const { state, onInit } = useContext(CartContext);
 
   useEffect(() => {
     const getMenuPizzas = async () => {
@@ -15,18 +17,18 @@ const Menu = () => {
           throw new Error("Failed to fetch");
         }
         const data = await res.json();
-        setPizzas(data.data);
+        onInit(data.data);
       } catch (e) {
         console.log(e.message);
       }
     };
     getMenuPizzas();
-  }, []);
+  }, [onInit]);
 
   return (
     <>
       <div className="menu-container">
-        {pizzas.map((pizza) => (
+        {state.items.map((pizza) => (
           <MenuItem key={pizza.id} pizza={pizza} />
         ))}
       </div>
