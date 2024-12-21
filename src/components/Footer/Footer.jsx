@@ -10,19 +10,9 @@ const Footer = () => {
   return (
     <div className="footer">
       <div className={"total"}>
-        <div className="quantity">
-          {state.totalQuantity}
-          {/*state.cartItems.map((item) => {
-            return quantity + item.qty;
-          })*/}
-        </div>
+        <div className="quantity">{state.totalQuantity}</div>
         <div>Pizzas</div>
-        <div className="totalPrice">
-          €{state.totalPrice}
-          {/*state.cartItems.map((item) => {
-            return totalPrice + item.unitPrice * item.qty;
-          })*/}
-        </div>
+        <div className="totalPrice">€{state.totalPrice}</div>
       </div>
       <Link className={"footer_link"} to="/basket">
         Open cart →

@@ -19,8 +19,7 @@ const CartItem = ({ item }) => {
         <Button
           className={"delete-btn"}
           onClick={() => {
-            onDelete(id),
-              onDecrementPriceQuantity(unitPrice * qty /*item.unitPrice*/);
+            onDelete(id), onDecrementPriceQuantity(unitPrice * qty);
           }}
           aria_label={"Delete item"}
         >
