@@ -6,7 +6,7 @@ import CounterDispatchAction from "../../components/Counter/CounterDispatchActio
 const CartItem = ({ item }) => {
   const { id, name, unitPrice, qty } = item;
 
-  const { onDelete /*, onDecrementPriceQuantity*/ } = useContext(CartContext);
+  const { onDelete } = useContext(CartContext);
 
   return (
     <>
@@ -19,10 +19,7 @@ const CartItem = ({ item }) => {
         <Button
           className={"delete-btn"}
           onClick={() => {
-            onDelete(
-              id,
-              unitPrice * qty
-            ) /*, onDecrementPriceQuantity(unitPrice * qty)*/;
+            onDelete(id, unitPrice * qty);
           }}
           aria_label={"Delete item"}
         >
