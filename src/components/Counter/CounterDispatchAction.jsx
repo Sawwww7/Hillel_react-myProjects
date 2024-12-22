@@ -8,8 +8,8 @@ const CounterDispatchAction = ({ id }) => {
     state,
     onIncrement,
     onDecrement,
-    onIncrementPriceQuantity,
-    onDecrementPriceQuantity,
+    //onIncrementPriceQuantity,
+    //onDecrementPriceQuantity,
   } = useContext(CartContext);
 
   const item = state.cartItems.find((item) => item.id === id);
@@ -20,8 +20,8 @@ const CounterDispatchAction = ({ id }) => {
         <Button
           className={"counter_button"}
           onClick={() => {
-            onDecrement(id);
-            onDecrementPriceQuantity(item.unitPrice);
+            onDecrement(id, item.unitPrice);
+            //onDecrementPriceQuantity(item.unitPrice);
           }}
           aria_label={"Decrease quantity"}
         >
@@ -33,8 +33,8 @@ const CounterDispatchAction = ({ id }) => {
       <Button
         className={"counter_button"}
         onClick={() => {
-          onIncrement(id);
-          onIncrementPriceQuantity(item.unitPrice);
+          onIncrement(id, item.unitPrice);
+          //onIncrementPriceQuantity(item.unitPrice);
         }}
         aria_label={"Increase quantity"}
       >

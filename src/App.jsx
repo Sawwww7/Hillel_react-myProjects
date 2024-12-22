@@ -8,9 +8,10 @@ import Main from "./pages/Main/Main";
 import Menu from "./pages/Menu/Menu";
 import Cart from "./pages/Cart/Cart";
 import PageNotFound from "./pages/PageNotFound";
-import OrderForm from "./pages/OrderForm/orderForm";
+import OrderForm from "./pages/OrderForm/OrderForm";
 import OrderStatus from "./pages/OrderStatus/OrderStatus";
 import Footer from "./components/Footer/Footer";
+import SomethingWentWrong from "./pages/SomethingWentWrong";
 
 function App() {
   const { theme } = useContext(ThemeContext);
@@ -27,6 +28,7 @@ function App() {
         <Route path="/basket" element={<Cart /* cartItems={cartItems}*/ />} />
         <Route path="/order" element={<OrderForm />} />
         <Route path="/order/:orderId" element={<OrderStatus />} />
+        <Route path="/wrong" element={<SomethingWentWrong />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
       {state.cartItems.length > 0 && <Footer />}

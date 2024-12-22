@@ -4,11 +4,13 @@ import Input from "../UI/Input/Input";
 import { Link } from "react-router-dom";
 import { NameContext } from "../../context/NameContext";
 import { ThemeContext } from "../../context/ThemeContext";
+//import { CartContext } from "../../context/CartContext";
 
 const Header = () => {
   const { userName } = useContext(NameContext);
   const { theme, onToggle } = useContext(ThemeContext);
   const [yourSearchValue, setYourSearchValue] = useState("");
+  //const { state } = useContext(CartContext);
 
   return (
     <div className="header">
@@ -44,6 +46,7 @@ const Header = () => {
       </div>
       <div></div>
       <div className="username">{userName}</div>
+      {/*<div className="username">{state.resObject.data.customer}</div>*/}
       <button className="toggle_theme" onClick={onToggle}>
         Toggle theme: {theme}
       </button>

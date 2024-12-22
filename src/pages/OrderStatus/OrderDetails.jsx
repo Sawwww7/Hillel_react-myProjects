@@ -1,13 +1,15 @@
+import { useContext } from "react";
+import { CartContext } from "../../context/CartContext";
+import OrderDetailsItems from "./OrderDetailsItems";
+
 const OrderDetails = () => {
+  const { state } = useContext(CartContext);
+
   return (
     <div className="order-details">
-      <div className="pizza-itemStatus">
-        <div className="pizza-header">
-          <span className="pizza-name">1x Margherita</span>
-          <span className="pizza-price">€12.00</span>
-        </div>
-        <div className="ingredients">Tomato, Mozzarella, Basil</div>
-      </div>
+      {state.resObject.data.cart.map((item) => {
+        return <OrderDetailsItems key={item.pizzaId} item={item} />;
+      })}
     </div>
   );
 };

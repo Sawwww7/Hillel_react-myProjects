@@ -5,12 +5,18 @@ CartContext.displayName = "CartContext";
 
 function CartContextProvider({ children }) {
   const initialState = {
+    customer: " ",
+    address: " ",
+    phone: " ",
+    priority: null,
+    // isLoading: false,
+    // currentItem: null,
     totalQuantity: 0,
     totalPrice: 0,
     items: [],
-    isLoading: false,
-    currentItem: null,
+
     cartItems: [],
+    resObject: {},
   };
 
   const reducer = (state, action) => {
@@ -39,12 +45,17 @@ function CartContextProvider({ children }) {
         return {
           ...state,
           cartItems: [...state.cartItems, { ...action.payload, qty: 1 }],
+
+          totalQuantity: state.totalQuantity + 1,
+          totalPrice: state.totalPrice + action.unitPrice,
         };
       }
 
       case "INCREMENT_CART":
         return {
           ...state,
+          totalQuantity: state.totalQuantity + 1,
+          totalPrice: state.totalPrice + action.unitPrice,
           cartItems: state.cartItems.map((i) => {
             if (i.id !== action.payload) return i;
             return { ...i, qty: i.qty + 1 };
@@ -54,6 +65,8 @@ function CartContextProvider({ children }) {
       case "DECREMENT_CART":
         return {
           ...state,
+          totalQuantity: state.totalQuantity - 1,
+          totalPrice: state.totalPrice - action.unitPrice,
           cartItems: state.cartItems.map((i) => {
             if (i.id !== action.payload) return i;
             return { ...i, qty: i.qty - 1 };
@@ -68,18 +81,19 @@ function CartContextProvider({ children }) {
           }),
         };
 
-      case "INCREMENT_TOTAL_PRICE_QUANTITY":
+      case "ADD_RES_OBJECT":
         return {
           ...state,
-          totalQuantity: state.totalQuantity + 1,
-          totalPrice: state.totalPrice + action.payload,
+          resObject: action.payload,
         };
 
-      case "DECREMENT_TOTAL_PRICE_QUANTITY":
+      case "ADD_DATA":
         return {
           ...state,
-          totalQuantity: state.totalQuantity - 1,
-          totalPrice: state.totalPrice - action.payload,
+          customer: action.payload.first_name,
+          address: action.payload.address,
+          phone: action.payload.phone_number,
+          priority: action.payload.checkbox,
         };
 
       default:
@@ -96,24 +110,27 @@ function CartContextProvider({ children }) {
     });
   }, []);
 
-  const handleAddToCart = useCallback((pizza) => {
+  const handleAddToCart = useCallback((pizza, unitPrice) => {
     dispatch({
       type: "ADD_TO_CART",
       payload: pizza,
+      unitPrice: Number(unitPrice),
     });
   }, []);
 
-  const handleClickIncrement = useCallback((id) => {
+  const handleClickIncrement = useCallback((id, unitPrice) => {
     dispatch({
       type: "INCREMENT_CART",
       payload: Number(id),
+      unitPrice: Number(unitPrice),
     });
   }, []);
 
-  const handleClickDecrement = useCallback((id) => {
+  const handleClickDecrement = useCallback((id, unitPrice) => {
     dispatch({
       type: "DECREMENT_CART",
       payload: Number(id),
+      unitPrice: Number(unitPrice),
     });
   }, []);
 
@@ -124,17 +141,17 @@ function CartContextProvider({ children }) {
     });
   }, []);
 
-  const handleIncrementTotalPriceQuantity = useCallback((unitPrice) => {
+  const handleAddResObject = useCallback((resObject) => {
     dispatch({
-      type: "INCREMENT_TOTAL_PRICE_QUANTITY",
-      payload: Number(unitPrice),
+      type: "ADD_RES_OBJECT",
+      payload: resObject,
     });
   }, []);
 
-  const handleDecrementTotalPriceQuantity = useCallback((unitPrice_qty) => {
+  const handleAddData = useCallback((data) => {
     dispatch({
-      type: "DECREMENT_TOTAL_PRICE_QUANTITY",
-      payload: Number(unitPrice_qty),
+      type: "ADD_DATA",
+      payload: data,
     });
   }, []);
 
@@ -145,8 +162,8 @@ function CartContextProvider({ children }) {
       onIncrement: handleClickIncrement,
       onDecrement: handleClickDecrement,
       onDelete: handleDeleteItem,
-      onIncrementPriceQuantity: handleIncrementTotalPriceQuantity,
-      onDecrementPriceQuantity: handleDecrementTotalPriceQuantity,
+      onAddResObject: handleAddResObject,
+      onAddData: handleAddData,
       state,
     }),
     [
@@ -155,8 +172,8 @@ function CartContextProvider({ children }) {
       handleClickIncrement,
       handleClickDecrement,
       handleDeleteItem,
-      handleIncrementTotalPriceQuantity,
-      handleDecrementTotalPriceQuantity,
+      handleAddResObject,
+      handleAddData,
       state,
     ]
   );

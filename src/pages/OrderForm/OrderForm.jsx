@@ -1,11 +1,13 @@
 import "./orderForm.css";
 import { useContext } from "react";
 import { NameContext } from "../../context/NameContext";
+import { CartContext } from "../../context/CartContext";
 import Button from "../../components/UI/Button/Button";
 import InputForm from "../../components/UI/Input/InputForm";
 import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { useNavigate } from "react-router-dom";
 
 const schema = z.object({
   first_name: z.string().min(3),
@@ -21,6 +23,61 @@ const schema = z.object({
 
 const OrderForm = () => {
   const { userName } = useContext(NameContext);
+  const { onAddData, state, onAddResObject } = useContext(CartContext);
+
+  //const { state, onAddResObject } = useContext(CartContext);
+  const { customer, address, phone, priority } = state;
+
+  const navigate = useNavigate();
+  const stateeNavigate = () => {
+    state.resObject.status === "success"
+      ? `/order/${"ANDRII"}`
+      : `/order/${"/wrong"}`;
+  };
+
+  const cart = state.cartItems.map((item) => {
+    return {
+      name: item.name,
+      pizzaId: item.id,
+      quantity: item.qty,
+      totalPrice: item.qty * item.unitPrice,
+      unitPrice: item.unitPrice,
+    };
+  });
+
+  const orderPizzas = async () => {
+    const body = {
+      customer: "Andrii",
+      address: "Kharkiv",
+      phone: "+38 (000)000-0000",
+      priority: false,
+      position: "",
+      cart: cart,
+    };
+
+    /*const body = {
+      customer: customer,
+      address: address,
+      phone: phone,
+      priority: priority,
+      position: "",
+      cart: cart,
+    };*/
+
+    const res = await fetch(
+      "https://react-fast-pizza-api.onrender.com/api/order",
+      {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(body),
+      }
+    );
+    const resObject = await res.json();
+    onAddResObject(resObject), navigate(`/order/${stateeNavigate}`);
+  };
+
   const form = useForm({
     mode: "onBlur",
     defaultValues: {
@@ -32,8 +89,10 @@ const OrderForm = () => {
   });
 
   const onSubmit = (data) => {
-    console.log("Submit form", data);
-    form.reset();
+    onAddData(data),
+      console.log("Submit form", data),
+      orderPizzas(),
+      form.reset();
   };
 
   return (
@@ -97,7 +156,7 @@ const OrderForm = () => {
               <div className="checkbox-wrapper">
                 <InputForm
                   name="checkbox"
-                  control={form.control}
+                  //control={form.control}
                   type={"checkbox"}
                   id="priority"
                 />
@@ -115,7 +174,7 @@ const OrderForm = () => {
               className={"order-btn"}
               type={"submit"}
             >
-              Order now for €12.00
+              {`Order now for  € ${state.totalPrice}.00`}
             </Button>
           </form>
         </FormProvider>
