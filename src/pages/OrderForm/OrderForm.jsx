@@ -25,12 +25,9 @@ const OrderForm = () => {
   const { userName } = useContext(NameContext);
   const { onAddData, state, onAddResObject } = useContext(CartContext);
 
-  //const { state, onAddResObject } = useContext(CartContext);
-  const { customer, address, phone, priority } = state;
-
   const navigate = useNavigate();
   const stateeNavigate = () => {
-    state.resObject.status === "success"
+    return state.resObject.status === "success"
       ? `/order/${"ANDRII"}`
       : `/order/${"/wrong"}`;
   };
@@ -45,24 +42,15 @@ const OrderForm = () => {
     };
   });
 
-  const orderPizzas = async () => {
+  const orderPizzas = async (data) => {
     const body = {
-      customer: "Andrii",
-      address: "Kharkiv",
-      phone: "+38 (000)000-0000",
-      priority: false,
+      customer: data.first_name,
+      address: data.address,
+      phone: data.phone_number,
+      priority: data.checkbox,
       position: "",
       cart: cart,
     };
-
-    /*const body = {
-      customer: customer,
-      address: address,
-      phone: phone,
-      priority: priority,
-      position: "",
-      cart: cart,
-    };*/
 
     const res = await fetch(
       "https://react-fast-pizza-api.onrender.com/api/order",
@@ -91,7 +79,7 @@ const OrderForm = () => {
   const onSubmit = (data) => {
     onAddData(data),
       console.log("Submit form", data),
-      orderPizzas(),
+      orderPizzas(data),
       form.reset();
   };
 
@@ -156,7 +144,7 @@ const OrderForm = () => {
               <div className="checkbox-wrapper">
                 <InputForm
                   name="checkbox"
-                  //control={form.control}
+                  control={form.control}
                   type={"checkbox"}
                   id="priority"
                 />

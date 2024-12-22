@@ -17,15 +17,13 @@ function App() {
   const { theme } = useContext(ThemeContext);
   const { state } = useContext(CartContext);
 
-  //const item = state.cartItems.find((item) => item.id === id);
-
   return (
     <div className={theme}>
       <Header />
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/menu" element={<Menu />} />
-        <Route path="/basket" element={<Cart /* cartItems={cartItems}*/ />} />
+        <Route path="/basket" element={<Cart />} />
         <Route path="/order" element={<OrderForm />} />
         <Route path="/order/:orderId" element={<OrderStatus />} />
         <Route path="/wrong" element={<SomethingWentWrong />} />

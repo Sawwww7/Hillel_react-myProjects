@@ -27,7 +27,7 @@ const Header = () => {
         value={yourSearchValue}
         setInputValue={setYourSearchValue}
       />
-      <div className="links">
+      {/*<div className="links">
         <Link className={"heder_link"} to="/menu">
           Menu
         </Link>
@@ -44,7 +44,7 @@ const Header = () => {
           Order status
         </Link>
       </div>
-      <div></div>
+      <div></div>*/}
       <div className="username">{userName}</div>
       {/*<div className="username">{state.resObject.data.customer}</div>*/}
       <button className="toggle_theme" onClick={onToggle}>
