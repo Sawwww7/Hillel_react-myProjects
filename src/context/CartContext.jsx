@@ -81,6 +81,12 @@ function CartContextProvider({ children }) {
           }),
         };
 
+      case "CLEAR_CARTS":
+        return {
+          ...state,
+          cartItems: [],
+        };
+
       case "ADD_RES_OBJECT":
         return {
           ...state,
@@ -134,6 +140,14 @@ function CartContextProvider({ children }) {
     });
   }, []);
 
+  const handleClickClear = useCallback((id, unitPrice) => {
+    dispatch({
+      type: "CLEAR_CARTS",
+      payload: Number(id),
+      unitPrice: Number(unitPrice),
+    });
+  }, []);
+
   const handleDeleteItem = useCallback((id) => {
     dispatch({
       type: "DELETE_CART",
@@ -164,6 +178,7 @@ function CartContextProvider({ children }) {
       onDelete: handleDeleteItem,
       onAddResObject: handleAddResObject,
       onAddData: handleAddData,
+      onClear: handleClickClear,
       state,
     }),
     [
@@ -174,6 +189,7 @@ function CartContextProvider({ children }) {
       handleDeleteItem,
       handleAddResObject,
       handleAddData,
+      handleClickClear,
       state,
     ]
   );

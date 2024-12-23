@@ -26,11 +26,6 @@ const OrderForm = () => {
   const { onAddData, state, onAddResObject } = useContext(CartContext);
 
   const navigate = useNavigate();
-  const stateeNavigate = () => {
-    return state.resObject.status === "success"
-      ? `/order/${"ANDRII"}`
-      : `/order/${"/wrong"}`;
-  };
 
   const cart = state.cartItems.map((item) => {
     return {
@@ -63,7 +58,12 @@ const OrderForm = () => {
       }
     );
     const resObject = await res.json();
-    onAddResObject(resObject), navigate(`/order/${stateeNavigate}`);
+    onAddResObject(resObject),
+      resObject.status === "success"
+        ? navigate(`/order/${userName}`)
+        : resObject.status === "fail"
+        ? navigate("/wrong")
+        : navigate("*");
   };
 
   const form = useForm({
@@ -72,6 +72,7 @@ const OrderForm = () => {
       first_name: userName,
       phone_number: 38,
       address: "",
+      checkbox: false,
     },
     resolver: zodResolver(schema),
   });

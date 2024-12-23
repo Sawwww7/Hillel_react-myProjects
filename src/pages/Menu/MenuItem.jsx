@@ -6,8 +6,7 @@ import CounterDispatchAction from "../../components/Counter/CounterDispatchActio
 const MenuItem = ({ pizza }) => {
   const { id, name, unitPrice, imageUrl, ingredients, soldOut } = pizza;
 
-  const { state, onAdd /*, onIncrementPriceQuantity*/ } =
-    useContext(CartContext);
+  const { state, onAdd } = useContext(CartContext);
 
   const item = state.cartItems.find((item) => item.id === id);
 
@@ -39,10 +38,7 @@ const MenuItem = ({ pizza }) => {
             <Button
               className={"add-to-cart"}
               onClick={() => {
-                onAdd(
-                  pizza,
-                  unitPrice
-                ) /*, onIncrementPriceQuantity(unitPrice)*/;
+                onAdd(pizza, unitPrice);
               }}
             >
               ADD TO CART

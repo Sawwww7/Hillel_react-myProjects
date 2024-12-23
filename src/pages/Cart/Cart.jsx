@@ -8,7 +8,7 @@ import "./cart.css";
 
 const Cart = () => {
   const { userName } = useContext(NameContext);
-  const { state } = useContext(CartContext);
+  const { state, onClear } = useContext(CartContext);
   const navigate = useNavigate();
 
   const order = () => {
@@ -37,7 +37,8 @@ const Cart = () => {
           Order pizzas
         </Button>
         <Button
-          className={"clear-btn"} //onClick={}
+          className={"clear-btn"}
+          onClick={onClear}
           aria_label={"Clear cart"}
         >
           Clear cart
