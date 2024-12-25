@@ -3,16 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import { lazy, Suspense, useContext } from "react";
 import { ThemeContext } from "./context/ThemeContext";
 import { CartContext } from "./context/CartContext";
-import Loadind from "./components/UI/Loading";
-/*import Header from "./components/Header/Header";
-import Main from "./pages/Main/Main";
-import Menu from "./pages/Menu/Menu";
-import Cart from "./pages/Cart/Cart";
-import PageNotFound from "./pages/PageNotFound";
-import OrderForm from "./pages/OrderForm/OrderForm";
-import OrderStatus from "./pages/OrderStatus/OrderStatus";
-import Footer from "./components/Footer/Footer";
-import SomethingWentWrong from "./pages/SomethingWentWrong";*/
+import Loading from "./components/UI/Loading";
 
 const Headerlazy = lazy(() => import("./components/Header/Header"));
 const Mainlazy = lazy(() => import("./pages/Main/Main"));
@@ -23,7 +14,6 @@ const OrderFormlazy = lazy(() => import("./pages/OrderForm/OrderForm"));
 const OrderStatuslazy = lazy(() => import("./pages/OrderStatus/OrderStatus"));
 const Footerlazy = lazy(() => import("./components/Footer/Footer"));
 const SomethingWentWronglazy = lazy(() => import("./pages/SomethingWentWrong"));
-import Loading from "./components/UI/Loading";
 
 function App() {
   const { theme } = useContext(ThemeContext);
@@ -31,7 +21,9 @@ function App() {
 
   return (
     <div className={theme}>
-      <Headerlazy />
+      <Suspense fallback={<Loading />}>
+        <Headerlazy />
+      </Suspense>
 
       <Routes>
         <Route
