@@ -1,9 +1,10 @@
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
-import { useContext } from "react";
+import { lazy, Suspense, useContext } from "react";
 import { ThemeContext } from "./context/ThemeContext";
 import { CartContext } from "./context/CartContext";
-import Header from "./components/Header/Header";
+import Loadind from "./components/UI/Loading";
+/*import Header from "./components/Header/Header";
 import Main from "./pages/Main/Main";
 import Menu from "./pages/Menu/Menu";
 import Cart from "./pages/Cart/Cart";
@@ -11,7 +12,18 @@ import PageNotFound from "./pages/PageNotFound";
 import OrderForm from "./pages/OrderForm/OrderForm";
 import OrderStatus from "./pages/OrderStatus/OrderStatus";
 import Footer from "./components/Footer/Footer";
-import SomethingWentWrong from "./pages/SomethingWentWrong";
+import SomethingWentWrong from "./pages/SomethingWentWrong";*/
+
+const Headerlazy = lazy(() => import("./components/Header/Header"));
+const Mainlazy = lazy(() => import("./pages/Main/Main"));
+const Menulazy = lazy(() => import("./pages/Menu/Menu"));
+const Cartlazy = lazy(() => import("./pages/Cart/Cart"));
+const PageNotFoundlazy = lazy(() => import("./pages/PageNotFound"));
+const OrderFormlazy = lazy(() => import("./pages/OrderForm/OrderForm"));
+const OrderStatuslazy = lazy(() => import("./pages/OrderStatus/OrderStatus"));
+const Footerlazy = lazy(() => import("./components/Footer/Footer"));
+const SomethingWentWronglazy = lazy(() => import("./pages/SomethingWentWrong"));
+import Loading from "./components/UI/Loading";
 
 function App() {
   const { theme } = useContext(ThemeContext);
@@ -19,17 +31,71 @@ function App() {
 
   return (
     <div className={theme}>
-      <Header />
+      <Headerlazy />
+
       <Routes>
-        <Route path="/" element={<Main />} />
-        <Route path="/menu" element={<Menu />} />
-        <Route path="/basket" element={<Cart />} />
-        <Route path="/order" element={<OrderForm />} />
-        <Route path="/order/:orderId" element={<OrderStatus />} />
-        <Route path="/wrong" element={<SomethingWentWrong />} />
-        <Route path="*" element={<PageNotFound />} />
+        <Route
+          path="/"
+          element={
+            <Suspense fallback={<Loading />}>
+              <Mainlazy />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/menu"
+          element={
+            <Suspense fallback={<Loading />}>
+              <Menulazy />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/basket"
+          element={
+            <Suspense fallback={<Loading />}>
+              <Cartlazy />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/order"
+          element={
+            <Suspense fallback={<Loading />}>
+              <OrderFormlazy />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/order/:orderId"
+          element={
+            <Suspense fallback={<Loading />}>
+              <OrderStatuslazy />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/wrong"
+          element={
+            <Suspense fallback={<Loading />}>
+              <SomethingWentWronglazy />
+            </Suspense>
+          }
+        />
+        <Route
+          path="*"
+          element={
+            <Suspense fallback={<Loading />}>
+              <PageNotFoundlazy />
+            </Suspense>
+          }
+        />
       </Routes>
-      {state.cartItems.length > 0 && <Footer />}
+      {state.cartItems.length > 0 && (
+        <Suspense fallback={<Loading />}>
+          <Footerlazy />
+        </Suspense>
+      )}
     </div>
   );
 }

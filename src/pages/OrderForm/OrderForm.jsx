@@ -57,13 +57,16 @@ const OrderForm = () => {
         body: JSON.stringify(body),
       }
     );
+
     const resObject = await res.json();
-    onAddResObject(resObject),
-      resObject.status === "success"
-        ? navigate(`/order/${userName}`)
-        : resObject.status === "fail"
-        ? navigate("/wrong")
-        : navigate("*");
+    onAddResObject(resObject);
+    if (resObject.status === "success") {
+      navigate(`/order/${userName}`);
+    } else if (resObject.status === "fail") {
+      navigate("/wrong");
+    } else {
+      navigate("*");
+    }
   };
 
   const form = useForm({
@@ -78,10 +81,10 @@ const OrderForm = () => {
   });
 
   const onSubmit = (data) => {
-    onAddData(data),
-      console.log("Submit form", data),
-      orderPizzas(data),
-      form.reset();
+    onAddData(data);
+    //console.log("Submit form", data);
+    orderPizzas(data);
+    form.reset();
   };
 
   return (
